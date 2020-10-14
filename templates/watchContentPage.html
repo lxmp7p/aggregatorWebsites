@@ -6,34 +6,65 @@
     <title>Title</title>
 </head>
 <body>
+<nav class="navbar navbar-dark bg-dark">
+  <a class="navbar-brand" href="">Web-Aggregator</a>
+</nav>
+<br>
 <div class="container">
     <div class="row">
-        <div class="col-sm">
-            <table>
+
+
+        <div class="col-sm border border-danger">
+            <table class="table table-inverse">
+                <tr>
+                    <h1>HABR PYTHON</h1>
+                </tr>
+                {% for list in habrPyList %}
+                <tr>
+                    <td><h4><a href = '{{list.url}}'>{{list.header}}</a></h4></td>
+                </tr>
+
+                {% endfor %}
+            </table>
+        </div>
+
+                <div class="col-sm border border-primary">
+            <table class="table table-inverse" >
                 <tr>
                     <h1>CODEBY</h1>
                 </tr>
                 {% for list in codebyList %}
                 <tr>
-                    <td><h2><a href = '{{list.url}}'>{{list.header}}</a></h2></td>
+                    <td><h4><a href = '{{list.url}}'>{{list.header}}</a></h4></td>
                 </tr>
 
                 {% endfor %}
             </table>
         </div>
 
-        <div class="col-sm">
-            <table>
+
+     <div class="col-sm border border-danger">
+            <table class="table table-inverse">
                 <tr>
-                    <h1>habr py</h1>
+                    <h1>HABR TOP</h1>
                 </tr>
-                {% for list in habrList %}
+                {% for list in habrTopList %}
                 <tr>
-                    <td><h2><a href = '{{list.url}}'>{{list.header}}</a></h2></td>
+                    <td><h4><a href = '{{list.url}}'>{{list.header}}</a></h4></td>
                 </tr>
 
                 {% endfor %}
             </table>
         </div>
+    </div>
+
+
+
+</div>
+
+
+</div>
+
+
 </body>
 </html>

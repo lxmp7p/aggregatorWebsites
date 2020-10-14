@@ -5,27 +5,35 @@ import requests
 from .models import newsList
 import re
 
+def check_name_len(name):
+    if len(name)>55:
+        return name[0:52] + '...'
+    else:
+        return name
 
 def get_news_from_site(soup, url):
     news = None
-    if 'habr.com' in url:
+    if 'habr.com/ru/top' in url:
         news = soup.findAll("a", {"class": "post__title_link"})
         get_habr_news(news, url)
-    if 'codeby.net' in url:
+    elif 'habr.com' in url:
+        news = soup.findAll("a", {"class": "post__title_link"})
+        get_habr_news(news, url)
+    elif 'codeby.net' in url:
         news = soup.findAll("h2", {"class": "block-header"})
         get_codeby_news(news, url)
 
 def get_habr_news(news, link):
     list_news = []
     for i in news:
+        name = check_name_len(i.text)
         bd = newsList(site = link,
                       url = i.get_attribute_list('href')[0],
-                      header= i.text,)
+                      header = name,)
         bd.save()
 
 def get_codeby_news(news, link):
     for i in news:
-        print('hi nigga')
         temp = str(i.get_attribute_list)
         temp = temp.replace('>', ';')
         tmp = []
@@ -35,7 +43,7 @@ def get_codeby_news(news, link):
             if z == ';':
                 tmp.append(line)
                 line = ''
-        name = tmp[4]
+        name = check_name_len(tmp[4])
         url = tmp[1]
         bd = newsList(site=link,
                       url= 'https://codeby.net' + url[10:-3],
