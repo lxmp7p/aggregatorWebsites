@@ -56,7 +56,57 @@
                 {% endfor %}
             </table>
         </div>
+
     </div>
+
+    <div class="row">
+
+
+        <div class="col-sm border border-danger">
+            <table class="table table-inverse">
+                <tr>
+                    <h1>XAKER PRIVACY</h1>
+                </tr>
+                {% for list in xakerPrivacyList %}
+                <tr>
+                    <td><h4><a href = '{{list.url}}'>{{list.header}}</a></h4></td>
+                </tr>
+
+                {% endfor %}
+            </table>
+        </div>
+
+                <div class="col-sm border border-primary">
+            <table class="table table-inverse" >
+                <tr>
+                    <h1>CODEBY</h1>
+                </tr>
+                {% for list in codebyList %}
+                <tr>
+                    <td><h4><a href = '{{list.url}}'>{{list.header}}</a></h4></td>
+                </tr>
+
+                {% endfor %}
+            </table>
+        </div>
+
+
+     <div class="col-sm border border-danger">
+            <table class="table table-inverse">
+                <tr>
+                    <h1>HABR TOP</h1>
+                </tr>
+                {% for list in habrTopList %}
+                <tr>
+                    <td><h4><a href = '{{list.url}}'>{{list.header}}</a></h4></td>
+                </tr>
+
+                {% endfor %}
+            </table>
+        </div>
+
+    </div>
+
 
 
 
