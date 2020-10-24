@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="text-center">
+    <form method="POST">
+          {% csrf_token %}
+    {% for list in sites %}
+    <div class="col-sm border border">
+        <tr>
+            <td><h4><button type="button" id={{list}} class="btn btn-primary" name="{{list}}" onclick="addReserches('{{ list }}')">{{list}}</button></h4></td>
+        </tr>
+    </div>
+    {% endfor %}
+        <button>Сохранить</button>
+    </form>
+</div>
+
+
+
+
+<script>
+function addReserches(id){
+    document.getElementById(id).disabled = true;
+    document.getElementById(id).id = id+'ACCEPT';
+    }
+</script>
+
+{% endblock %}
