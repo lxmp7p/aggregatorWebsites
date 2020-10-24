@@ -1,8 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
     <div class="row">
-
-
+        {% if habrPyList %}
         <div class="col-sm border border-danger">
             <table class="table table-inverse">
                 <tr>
@@ -16,7 +15,9 @@
                 {% endfor %}
             </table>
         </div>
+        {% endif %}
 
+        {% if codebyList %}
                 <div class="col-sm border border-primary">
             <table class="table table-inverse" >
                 <tr>
@@ -30,8 +31,9 @@
                 {% endfor %}
             </table>
         </div>
+        {% endif %}
 
-
+        {% if habrTopList %}
      <div class="col-sm border border-danger">
             <table class="table table-inverse">
                 <tr>
@@ -47,14 +49,18 @@
         </div>
 
     </div>
+{% endif %}
+
+
+
 
     <div class="row">
-
+   {% if xakerPrivacyList %}
 
         <div class="col-sm border border-danger">
             <table class="table table-inverse">
                 <tr>
-                    <h1>XAKER PRIVACY</h1>
+                    <h1>XAKEP PRIVACY</h1>
                 </tr>
                 {% for list in xakerPrivacyList %}
                 <tr>
@@ -64,37 +70,9 @@
                 {% endfor %}
             </table>
         </div>
-
-                <div class="col-sm border border-primary">
-            <table class="table table-inverse" >
-                <tr>
-                    <h1>CODEBY</h1>
-                </tr>
-                {% for list in codebyList %}
-                <tr>
-                    <td><h4><a href = '{{list.url}}'>{{list.header}}</a></h4></td>
-                </tr>
-
-                {% endfor %}
-            </table>
-        </div>
+{% endif %}
 
 
-     <div class="col-sm border border-danger">
-            <table class="table table-inverse">
-                <tr>
-                    <h1>HABR TOP</h1>
-                </tr>
-                {% for list in habrTopList %}
-                <tr>
-                    <td><h4><a href = '{{list.url}}'>{{list.header}}</a></h4></td>
-                </tr>
-
-                {% endfor %}
-            </table>
-        </div>
-
-    </div>
 
 
 

@@ -3,6 +3,7 @@ from bs4 import BeautifulSoup
 #from fake_useragent import UserAgent
 import requests
 from .models import newsList
+from .models import whiteList
 import re
 
 def check_name_len(name):
@@ -10,6 +11,11 @@ def check_name_len(name):
         return name[0:52] + '...'
     else:
         return name
+
+
+def select_sites(site):
+    b = whiteList(site=site)
+    b.save()
 
 def get_news_from_site(soup, url):
     news = None
@@ -77,10 +83,11 @@ def get_codeby_news(news, link):
         bd.save()
 
 def get_news(request,url):
-    bd = newsList
-    data = requests.get(url)
-    page = data.text
-    soup = BeautifulSoup(page, 'html.parser')
+    check_site =  whiteList.objects.filter(site=url)
+    if check_site:
+        data = requests.get(url)
+        page = data.text
+        soup = BeautifulSoup(page, 'html.parser')
 
 
-    get_news_from_site(soup,url)
+        get_news_from_site(soup,url)

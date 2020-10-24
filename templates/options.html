@@ -7,21 +7,21 @@
     {% for list in sites %}
     <div class="col-sm border border">
         <tr>
-            <td><h4><button type="button" id={{list}} class="btn btn-primary" name="{{list}}" onclick="addReserches('{{ list }}')">{{list}}</button></h4></td>
+            <td><h4><button type="button" id={{list}} value="Coffee" class="btn btn-primary" name="{{list}}" onclick="addReserches('{{ list }}')">{{list}}</button></h4></td>
         </tr>
     </div>
     {% endfor %}
-        <button>Сохранить</button>
+        <input id='lbltipAddedComment' type = "text" name = "site" size = "50" /> <br />
+        <button type='submit'>Сохранить</button>
     </form>
 </div>
-
 
 
 
 <script>
 function addReserches(id){
     document.getElementById(id).disabled = true;
-    document.getElementById(id).id = id+'ACCEPT';
+    document.getElementById('lbltipAddedComment').value = document.getElementById('lbltipAddedComment').value + id + ',';
     }
 </script>
 

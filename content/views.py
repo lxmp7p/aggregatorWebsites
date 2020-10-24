@@ -5,27 +5,31 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .functions_list import *
 from .models import newsList
+from .models import whiteList
 
-sites = ['HabrPython','HabrTop','Codeby','Xakep',]
 
-habr_python = { 'name':'Хабр питон', 'url': 'https://habr.com/ru/hub/python/', }
-habr_top = { 'name':'Хабр топ', 'url': 'https://habr.com/ru/top/', }
-codeby = { 'name':'Codeby', 'url': 'https://codeby.net/', }
-xakep = { 'name':'Xakep', 'url': 'https://xakep.ru/category/privacy/', }
+sites = [{ 'name':'HabrPython', 'url': 'https://habr.com/ru/hub/python/', },
+         { 'name':'HabrTop', 'url': 'https://habr.com/ru/top/', },
+         { 'name':'Codeby', 'url': 'https://codeby.net/', },
+         { 'name':'Xakep', 'url': 'https://xakep.ru/category/privacy/', }]
+
 
 def watch_content(request):
     newsList.objects.all().delete()
-    url_list = [habr_python.get('url'),
-                habr_top.get('url'),
-                codeby.get('url'),
-                xakep.get('url'),]
+    url_list = []
+    for site in sites:
+        url_list.append(site.get('url'))
     for site in url_list:
         get_news(request, site)
 
-    codebyList = newsList.objects.filter(site=codeby.get('url'))
-    habrTopList = newsList.objects.filter(site=habr_top.get('url'))
-    habrPyList = newsList.objects.filter(site=habr_python.get('url'))
-    xakepPrivacyList = newsList.objects.filter(site=xakep.get('url'))
+    habrPyList = newsList.objects.filter(site=sites[0].get('url'))
+    habrTopList = newsList.objects.filter(site=sites[1].get('url'))
+    codebyList = newsList.objects.filter(site=sites[2].get('url'))
+    xakepPrivacyList = newsList.objects.filter(site=sites[3].get('url'))
+    print(codebyList)
+    print(habrPyList)
+    print(habrTopList)
+    print(xakepPrivacyList)
     return render(request, 'watchContentPage.html', {'codebyList': codebyList,
                                                      'habrTopList':habrTopList,
                                                      'habrPyList':habrPyList,
@@ -33,10 +37,24 @@ def watch_content(request):
                                                     })
 
 def open_options(request):
-    print(request.POST)
-    context = {'habr_python':'eqwqwwqe',
-               'habr_top':habr_top,
-               'codeby':codeby,
-               'xakep':xakep,}
+    if request.POST:
+        siteList = []
+        siteName = ''
+        for i in request.POST.get('site'):
+            if i != ',':
+                siteName += i
+            else:
+                siteList.append(siteName)
+                siteName = ''
+        accept_urls = []
+        whiteList.objects.all().delete()
+        for i in siteList:
+            for site in sites:
+                if i == site.get('name'):
+                    select_sites(site.get('url'))
 
-    return render(request, 'options.html', {'sites':sites})
+    url_list = []
+    for site in sites:
+        url_list.append(site.get('name'))
+
+    return render(request, 'options.html', {'sites':url_list})
